@@ -9,29 +9,28 @@ public class Signalization : MonoBehaviour
     [SerializeField] float _increaseVolumeSpeed = 0.1f;
     [SerializeField] float _decreaseVolumeSpeed = 0.2f;
 
-    private Coroutine signalizationOn;
-    private Coroutine signalizationOff;
+    private Coroutine _signalization;
 
-    public void StartSignalization()
+    public void SetOn()
     {
         if (_audioSource.isPlaying)
             return;
         else
-            if(signalizationOff != null)
-                StopCoroutine(signalizationOff);
+            if(_signalization != null)
+                StopCoroutine(_signalization);
 
-        signalizationOn = StartCoroutine(VolumeUpSignalization());
+        _signalization = StartCoroutine(VolumeUpSignalization());
     }
 
-    public void StopSignalization()
+    public void SetOff()
     {
         if (_audioSource.isPlaying == false)
             return;
         else
-            if (signalizationOn != null)
-                StopCoroutine(signalizationOn);
+            if (_signalization != null)
+                StopCoroutine(_signalization);
 
-        signalizationOff = StartCoroutine(VolumeDownSignalization());
+        _signalization = StartCoroutine(VolumeDownSignalization());
     }
 
     private IEnumerator VolumeUpSignalization()
